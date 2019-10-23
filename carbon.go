@@ -17,7 +17,9 @@ package carbon
 
 import (
 	"errors"
+	"fmt"
 	"math"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -41,6 +43,7 @@ const (
 // Represents the different string formats for dates
 const (
 	DefaultFormat       = "2006-01-02 15:04:05"
+	DefaultFormatMs     = "2006-01-02 15:04:05.000"
 	DateFormat          = "2006-01-02"
 	FormattedDateFormat = "Jan 2, 2006"
 	TimeFormat          = "15:04:05"
@@ -383,6 +386,13 @@ func (c *Carbon) TimeZone() string {
 // Timestamp gets the current time since January 1, 1970 UTC
 func (c *Carbon) Timestamp() int64 {
 	return c.Unix()
+}
+
+// Millisecond Timestamp
+func (c *Carbon) TimestampMs() float64 {
+	timeStr := fmt.Sprintf("%.3f", float64(float64(c.UnixNano()/1e6)/1000))
+	ms, _ := strconv.ParseFloat(timeStr, 64)
+	return ms
 }
 
 // String gets the current date using the previously set format
