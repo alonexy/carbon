@@ -17,9 +17,7 @@ package carbon
 
 import (
 	"errors"
-	"fmt"
 	"math"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -389,10 +387,8 @@ func (c *Carbon) Timestamp() int64 {
 }
 
 // Millisecond Timestamp
-func (c *Carbon) TimestampMs() float64 {
-	timeStr := fmt.Sprintf("%.3f", float64(float64(c.UnixNano()/1e6)/1000))
-	ms, _ := strconv.ParseFloat(timeStr, 64)
-	return ms
+func (c *Carbon) TimestampMs() int64 {
+	return c.UnixNano()/1e6
 }
 
 // String gets the current date using the previously set format
